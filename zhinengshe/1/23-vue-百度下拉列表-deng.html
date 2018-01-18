@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>智能社——http://www.zhinengshe.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+        .gray {
+            background: deeppink;
+        }
+    </style>
+    <script src="vue.js"></script>
+    <script src="vue-resource.js"></script>
+    <script>
+        window.onload = function () {
+            new Vue({
+                el: '#box',
+                data: {
+                    searchWorld: '',
+                    response: [],
+                    now: -1
+                },
+                methods: {
+                    get: function (e) {
+                        if (e.keyCode === 13) {
+                            window.open('https://www.baidu.com/s?wd=' + this.searchWorld);
+//                            this.searchWorld = '';
+                        }
+
+                        if (e.keyCode === 40) {
+                            this.now++;
+
+                            if (this.now === this.response.length) {
+                                this.now = 0;
+                            }
+                            this.searchWorld = this.response[this.now];
+                            return;
+                        }
+
+                        if (e.keyCode === 38) {
+                            this.now--;
+
+                            if (this.now === -2 || this.now === -1) {
+                                this.now = this.response.length - 1;
+                            }
+                            this.searchWorld = this.response[this.now];
+                            return;
+                        }
+
+                        this.$http.jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su', {
+                            wd: this.searchWorld
+                        }, {
+                            jsonp: 'cb'
+                        }).then(function (res) {
+                            this.response = res.data.s;
+                            console.log(Array.isArray(res.data.s));
+
+                        }, function () {
+
+                        });
+//                        console.log(this.searchWorld);
+                    }
+                }
+            });
+        };
+    </script>
+</head>
+<body>
+<div id="box">
+    <input type="text" v-model="searchWorld" @keyup="get($event)">
+    <ul>
+        <li v-for="(k,v) in response" :class="{gray:k===now}">{{ v }}</li>
+    </ul>
+
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

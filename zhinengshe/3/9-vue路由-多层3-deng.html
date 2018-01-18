@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>9-vue路由-多层3-deng</title>
+    <script src="bower_components/vue/dist/vue.js"></script>
+    <script src="bower_components/vue-router/dist/vue-router.js"></script>
+    <style>
+        .v-link-active {
+            color: #f60;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <ul>
+        <li>
+            <a v-link="{path:'/home'}">首页</a>
+        </li>
+        <li>
+            <a v-link="{path:'/news'}">新闻</a>
+        </li>
+    </ul>
+    <!--将路由的内容放到这里-->
+    <div>
+        <router-view></router-view>
+    </div>
+</div>
+
+<!--首页模板-->
+<template id="home">
+    <h3>我是home!</h3>
+    <ul>
+        <li><a v-link="{path:'/home/login'}">登录</a></li>
+        <li><a v-link="{path:'/home/reg/0001'}">注册</a></li>
+    </ul>
+    <div>
+        <router-view></router-view>
+    </div>
+
+</template>
+<!--// 首页模板-->
+
+<!--注册模板-->
+<template id="reg">
+    <h1>我是注册页面啊，啊啊啊！</h1>
+    {{ $route.params | json }}
+    <hr>
+    {{ $route.path }}
+    <hr>
+    {{ $route.query }}
+    <hr>
+</template>
+<!--// 注册模板-->
+
+<script>
+    var App = Vue.extend({});
+
+    var Home = Vue.extend({
+        template: '#home'
+    });
+    var News = Vue.extend({
+        template: '<h3>新闻!</h3>'
+    });
+
+
+    var Reg = Vue.extend({
+        template: '#reg'
+    });
+
+    var router = new VueRouter();
+    router.map({
+        'home': {
+            component: Home,
+            subRoutes: {
+                login: {
+                    component: {
+                        template: '<a href="www.baidu.com">去百度登录！</a>'
+                    }
+                },
+                'reg/:id': {
+                    component: Reg
+                }
+
+            }
+        },
+        'news': {
+            component: News
+        }
+
+    });
+
+    router.start(App, '#box');
+    router.redirect({
+        '/': 'home'
+    });
+
+</script>
+</body>
+</html>

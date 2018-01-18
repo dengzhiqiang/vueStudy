@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>1.vue对象讲解</title>
+    <style>
+        html, body {
+            position: relative;
+            font-size: 16px;
+            background: #000;
+            color: deeppink;
+        }
+
+    </style>
+</head>
+<body id="body">
+<div id="app">
+
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    /**
+     * el:将vue对象挂载到某个对象上面，这里挂载到id为app上面
+     * template:放模板，或者其他的组件。
+     * data:里面的书籍会代理到vue的实例对象上面。比如下面 vue.fruit 可以获得fruit的值
+     *
+     * @type {Vue|*}
+     */
+    var vue = new Vue({
+        el: '#app',
+        template: '<div>{{ fruit }}</div>',
+        data: {
+            fruit: 'apple'
+        }
+    });
+    console.log(vue);
+    console.log(vue.fruit);
+</script>
+</body>
+</html>

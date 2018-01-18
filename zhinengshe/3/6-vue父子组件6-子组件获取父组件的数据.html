@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="bower_components/vue/dist/vue.js"></script>
+    <style>
+        body {
+            background: #000;
+            font-size: 18px;
+            color: deeppink;
+        }
+
+        button {
+            width: 20%;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <parent :aaa="parentA"></parent>
+
+</div>
+
+
+<template id="parent">
+    <div>{{parentA}} ==> {{ comParent }}</div>
+    <child :bbb="parentA"></child>
+    <button @click="get()">btn</button>
+</template>
+
+
+<template id="child">
+    <div>{{bbb}}</div>
+    <button @click="get()">btn</button>
+</template>
+<script>
+    var vm = new Vue({
+        el: '#box',
+        data: {
+            parentA: 'parentA!'
+        },
+        methods: {},
+        components: {
+            // 父级组件
+            parent: {
+                data: function () {
+                    return {
+                        parentA: 'parentA!!!!',
+                        comParent: 'comParent'
+                    };
+                },
+                methods: {
+                    get: function () {
+                        // 'parentA!!!!'
+                        alert(this.parentA);
+                    }
+                },
+                props: ['aaa'],
+                template: '#parent',
+                components: {
+                    child: {
+                        data: function () {
+                            return {
+                                childA: 'childA!'
+                            };
+                        },
+                        template: '#child',
+                        props: ['bbb'],
+                        methods: {
+                            get: function () {
+                                alert(this.bbb);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+</script>
+</body>
+</html>
