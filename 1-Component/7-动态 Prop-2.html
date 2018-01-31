@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>7-动态 Prop-2</title>
+    <style>
+        body {
+            background: #000;
+            color: deeppink;
+            font-size: 18px;
+        }
+
+        button {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="box">
+    <child v-bind="todo"></child>
+</div>
+
+
+<script src="../node_modules/vue/dist/vue.js"></script>
+
+
+<script>
+
+    new Vue({
+        el: '#box',
+        data: {
+            message: '',
+            todo: {
+//                如果你想把一个对象的所有属性作为 prop 进行传递，可以使用不带任何参数的 v-bind (即用 v-bind 而不是 v-bind:prop-name)。例如，已知一个 todo 对象：
+                text: 'Learn Vue',
+                isComplete: false
+            }
+        },
+        components: {
+            'child':
+                {
+                    data: function () {
+                        return {
+                            greenData: 'greenData'
+                        };
+                    },
+                    // 这里还是要填写名称 才能使用
+                    props: ['text', 'isComplete'],
+                    template:
+                        '<h2>{{ text }} {{ isComplete }}</h2>'
+                }
+        }
+    })
+    ;
+</script>
+
+</body>
+</html>

@@ -51,6 +51,7 @@
     <div class="green">
         <h1>我是绿色</h1>
         <p>{{ greenData }}</p>
+        <p>{{ redGreenDataBak }}</p>
     </div>
 </template>
 <script src="vue.js"></script>
@@ -74,8 +75,13 @@
                         data: function () {
                             return {
                                 greenData: 'greenData',
+                                redGreenDataBak: ''
                             };
                         },
+                        mounted: function () {
+                            this.redGreenDataBak = this.redGreenData;
+                        },
+
                         props: ['redGreenData'],
                         template: '#green'
                     }

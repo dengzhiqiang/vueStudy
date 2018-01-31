@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3-局部注册</title>
+    <style>
+        body {
+            background: #000;
+            color: deeppink;
+            font-size: 18px;
+        }
+
+        button {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="example">
+    <green></green>
+</div>
+
+
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    //  创建根实例
+    new Vue({
+        el: '#example',
+        components: {
+            /* 将只在父组件模板中可用 */
+            green: {
+                template: "<h1>我是green组件!</h1>",
+                data: function () {
+                    return {
+                        name: 'green',
+                        scopeInner:'scopeInner'
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

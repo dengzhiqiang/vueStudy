@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>7-动态 Prop</title>
+    <style>
+        body {
+            background: #000;
+            color: deeppink;
+            font-size: 18px;
+        }
+
+        button {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="box">
+    <!--与绑定到任何普通的 HTML 特性相类似，我们可以用 v-bind 来动态地将 prop 绑定到父组件的数据。每当父组件的数据变化时，该变化也会传导给子组件：-->
+    <input v-model="message">
+    <hr>
+    <child :msg="message"></child>
+</div>
+
+
+<script src="../node_modules/vue/dist/vue.js"></script>
+
+
+<script>
+    new Vue({
+        el: '#box',
+        data: {
+            message: ''
+        },
+        components: {
+            'child': {
+                data: function () {
+                    return {
+                        greenData: 'greenData'
+                    };
+                },
+                props: ['msg'],
+                template: '<h2>{{ msg }}</h2>'
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>8-字面量语法 vs 动态语法</title>
+    <style>
+        body {
+            background: #000;
+            color: deeppink;
+            font-size: 18px;
+        }
+
+        button {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="box">
+    <!-- 传递了一个字符串 "1" -->
+    <child msg="1"></child>
+
+    <!--因为它是一个字面量 prop，它的值是字符串 "1" 而不是一个数值。如果想传递一个真正的 JavaScript 数值，则需要使用 v-bind，从而让它的值被当作 JavaScript 表达式计算：-->
+    <child :msg="1"></child>
+</div>
+
+
+<script src="../node_modules/vue/dist/vue.js"></script>
+
+
+<script>
+
+    new Vue({
+        el: '#box',
+        components: {
+            'child':
+                {
+                    // 这里还是要填写名称 才能使用
+                    props: ['msg'],
+                    template:
+                        '<h2>{{ typeof msg }}</h2>'
+                }
+        }
+    })
+    ;
+</script>
+
+</body>
+</html>

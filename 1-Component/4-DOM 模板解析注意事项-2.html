@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>4-DOM 模板解析注意事项-2</title>
+    <style>
+        body {
+            background: #000;
+            color: deeppink;
+            font-size: 18px;
+        }
+
+        button {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="box">
+    <table>
+        <tr is="my-row"></tr>
+    </table>
+</div>
+
+
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    //    当使用 DOM 作为模板时 (例如，使用 el 选项来把 Vue 实例挂载到一个已有内容的元素上)，你会受到 HTML 本身的一些限制，因为 Vue 只有在浏览器解析、规范化模板之后才能获取其内容。尤其要注意，像 <ul>、<ol>、<table>、<select> 这样的元素里允许包含的元素有限制，而另一些像 <option> 这样的元素只能出现在某些特定元素的内部。
+    //  在自定义组件中使用这些受限制的元素时会导致一些问题，例如：
+    //<table>
+    //  <my-row>...</my-row>
+    //</table>
+
+    // 自定义组件 <my-row> 会被当作无效的内容，因此会导致错误的渲染结果。
+    // 变通的方案是使用特殊的 is 特性：
+
+</script>
+<script>
+    new Vue({
+        el: '#box',
+        components: {
+            'my-row': {
+                template:
+                '<tr>' +
+                '    <td>我是td</td>' +
+                '    <td>我是td</td>' +
+                '</tr>',
+            }
+        }
+    });
+</script>
+
+<script>
+
+</script>
+
+</body>
+</html>
